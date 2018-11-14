@@ -13,8 +13,20 @@ var io = socketIO(server);
 //middleware
 app.use(express.static(publicPath));
 
+//listener for user connection
 io.on('connection', (socket) => {
   console.log('New user connected');
+
+  socket.emit('newMessage', {
+    from: 'Andrew',
+    text: 'See you soon'
+  });
+
+  socket.on('createMessage', (input) => {
+    console.log('createMessage', input);
+
+  });
+
 
   socket.on('disconnect', () => {
     console.log('New user disconnected');
